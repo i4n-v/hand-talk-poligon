@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "773145623204",
+    "firebase_url": "https://hand-talk-poligon-default-rtdb.firebaseio.com",
+    "project_id": "hand-talk-poligon",
+    "storage_bucket": "hand-talk-poligon.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:773145623204:android:172d5a62061c0f10f9c431",
+        "android_client_info": {
+          "package_name": "com.handtalkpoligon"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBK4wxGNjlgjhbsIMzKgCFPcXiiBLm7Rto"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
