@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
+/* eslint-disable no-undef */
 const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
 
 /**

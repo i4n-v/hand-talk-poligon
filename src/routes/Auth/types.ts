@@ -1,5 +1,6 @@
-type AuthStackParamList = {
+type AuthTabParamList = {
   Home: undefined;
+  Settings: undefined;
 };
 
-export type { AuthStackParamList };
+export type { AuthTabParamList };

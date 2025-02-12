@@ -23,14 +23,16 @@ interface ITypography {
   };
   fonts: {
     primary: {
-      light: string;
       normal: string;
       medium: string;
-      bold: string;
+      semibold: string;
     };
     secondary: {
-      normal: string;
+      light: string;
+      regular: string;
       medium: string;
+      semibold: string;
+      bold: string;
     };
   };
 }

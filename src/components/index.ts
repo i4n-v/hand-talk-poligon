@@ -1,5 +1,3 @@
-import App from './App';
-import Home from './Home';
-import Signin from './Signin';
+import Header from './Header';
 
-export { App, Home, Signin };
+export { Header };

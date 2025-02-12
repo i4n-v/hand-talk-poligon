@@ -1,5 +1,5 @@
 import React from 'react';
-import { Signin } from '@/components';
+import { Signin } from '@/screens';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { UnauthStackParamList } from './types';
 

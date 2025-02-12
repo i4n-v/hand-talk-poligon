@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Auth from './Auth';
 import Unauth from './Unauth';
+import { AuthContext } from '@/contexts/AuthContext';
 
 export default function Routes() {
-  const isAuthenticated = false;
+  const { user } = useContext(AuthContext);
 
-  return isAuthenticated ? <Auth /> : <Unauth />;
+  return user ? <Auth /> : <Unauth />;
 }

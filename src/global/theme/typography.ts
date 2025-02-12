@@ -10,14 +10,16 @@ const typography: ITypography = {
   },
   fonts: {
     primary: {
-      light: 'Rubik-Light',
-      normal: 'Rubik-Regular',
-      medium: 'Rubik-Medium',
-      bold: 'Rubik-Bold',
+      normal: 'Poppins-Regular',
+      medium: 'Poppins-Medium',
+      semibold: 'Poppins-SemiBold',
     },
     secondary: {
-      normal: 'MavenPro-Regular',
-      medium: 'MavenPro-Medium',
+      light: 'OpenSans-Light',
+      regular: 'OpenSans-Regular',
+      medium: 'OpenSans-Medium',
+      semibold: 'OpenSans-SemiBold',
+      bold: 'OpenSans-Bold',
     },
   },
 };
