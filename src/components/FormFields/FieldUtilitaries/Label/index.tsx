@@ -6,7 +6,15 @@ export default function Label({ children, required, disabled, error, style }: IL
   if (!children) return null;
 
   return (
-    <LabelText disabled={disabled} error={error} style={style}>
+    <LabelText
+      accessible
+      accessibilityLabel={children}
+      nativeID={children}
+      disabled={disabled}
+      aria-disabled={disabled}
+      error={error}
+      style={style}
+    >
       {children}
       {required && <LabelRequirement>{' *'}</LabelRequirement>}
     </LabelText>

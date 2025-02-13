@@ -1,3 +1,4 @@
 import authService from './auth';
+import settingsService from './settings';
 
-export { authService };
+export { authService, settingsService };

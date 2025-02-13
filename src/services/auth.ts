@@ -1,15 +1,22 @@
 import { ISiginForm } from '@/screens/Signin/types';
+import { IFirebaseAuth } from '@/types/Firebase';
 import auth from '@react-native-firebase/auth';
 
 class AuthService {
-  async signin(data: ISiginForm) {
-    const response = await auth().signInWithEmailAndPassword(data.email, data.password);
-    return response;
+  private auth: IFirebaseAuth;
+
+  constructor(auth: IFirebaseAuth) {
+    this.auth = auth;
   }
 
-  async signout() {
-    await auth().signOut();
-  }
+  signin = async (data: ISiginForm) => {
+    const response = await this.auth().signInWithEmailAndPassword(data.email, data.password);
+    return response;
+  };
+
+  signout = async () => {
+    await this.auth().signOut();
+  };
 }
 
-export default new AuthService();
+export default new AuthService(auth);

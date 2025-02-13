@@ -1,3 +1,3 @@
-const API_URL = 'http://localhost:5000';
+const DATABASE_URL = 'https://hand-talk-poligon-default-rtdb.firebaseio.com/';
 
-export { API_URL };
+export { DATABASE_URL };

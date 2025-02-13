@@ -1,5 +1,6 @@
+import BottomSheetList from './BottomSheetList';
 import Header from './Header';
 import Poligon from './Poligon';
 import Title from './Title';
 
-export { Header, Poligon, Title };
+export { Header, Poligon, Title, BottomSheetList };

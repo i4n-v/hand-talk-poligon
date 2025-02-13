@@ -5,6 +5,14 @@ import { InputContainer, InputIconButton, TextInput } from './styles';
 import { ErrorMessage, Label } from '../FieldUtilitaries';
 import { ITextFieldProps } from './types';
 import { CloseEye, Eye } from '@/components/Icons';
+import { View } from 'react-native-reanimated/lib/typescript/Animated';
+
+const defaultController: any = {
+  field: {},
+  formState: {
+    errors: {},
+  },
+};
 
 function TextField({
   name,
@@ -19,6 +27,12 @@ function TextField({
   disabled,
   containerProps,
   inputProps,
+  showErrorMessage,
+  errorMessage,
+  selectionColor,
+  onChangeText,
+  onBlur,
+  onFocus,
 }: ITextFieldProps) {
   const theme = useTheme();
   const [focused, setFocused] = useState(false);
@@ -27,8 +41,8 @@ function TextField({
   const {
     field,
     formState: { errors },
-  } = useController({ name, control });
-  const error = errors[field.name]?.message;
+  } = name && control ? useController({ name, control }) : defaultController;
+  const error = !showErrorMessage ? null : (errorMessage ?? errors[field.name]?.message);
 
   const toggleFocus = useCallback(() => {
     setFocused((focused) => !focused);
@@ -49,20 +63,44 @@ function TextField({
         value={value ?? field.value ?? undefined}
         placeholder={placeholder}
         placeholderTextColor={theme.colors.secondary?.[300]}
-        selectionColor={theme.colors.primary?.[300]}
+        selectionColor={selectionColor ?? theme.colors.primary?.[300]}
         secureTextEntry={hidden}
         editable={!disabled}
+        aria-disabled={disabled}
         focused={focused}
         error={!!error}
         leftIcon={leftIcon as any}
         rightIcon={leftIcon as any}
         password={password}
-        onChangeText={field.onChange}
-        onBlur={toggleFocus}
-        onFocus={toggleFocus}
+        accessibilityLabel={label}
+        accessibilityLabelledBy={label}
+        onChangeText={(value) => {
+          if (onChangeText instanceof Function) {
+            onChangeText(value);
+          } else {
+            field.onChange(value);
+          }
+        }}
+        onBlur={(event) => {
+          toggleFocus();
+
+          if (onBlur instanceof Function) {
+            onBlur(event);
+          }
+        }}
+        onFocus={(event) => {
+          toggleFocus();
+
+          if (onFocus instanceof Function) {
+            onFocus(event);
+          }
+        }}
       />
       {leftIcon && (
         <InputIconButton
+          accessible
+          accessibilityLabel="Ícone"
+          accessibilityRole="button"
           error={!!error}
           direction="left"
           icon={leftIcon.icon}
@@ -74,6 +112,9 @@ function TextField({
       )}
       {(rightIcon || password) && (
         <InputIconButton
+          accessible
+          accessibilityLabel="Ícone"
+          accessibilityRole="button"
           error={!!error}
           direction="right"
           activeOpacity={rightIcon?.onPress ? 0.7 : 1}
@@ -84,7 +125,7 @@ function TextField({
           {!password && rightIcon!.icon}
         </InputIconButton>
       )}
-      <ErrorMessage>{error as ReactNode}</ErrorMessage>
+      <ErrorMessage>{error}</ErrorMessage>
     </InputContainer>
   );
 }

@@ -1,11 +1,100 @@
-import React from 'react';
-import { Text } from 'react-native';
-import { Container } from './styles';
+import React, { useContext, useEffect } from 'react';
+import { Button, Container } from './styles';
+import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
+import { Poligon } from '@/components';
+import { useForm } from 'react-hook-form';
+import { defaultValues, validations } from './validations';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { ColorPickerField, SelectField, SliderField } from '@/components/FormFields';
+import { ISettingsForm } from './types';
+import { poligonsNames, poligonsOptions } from './constants';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { settingsService } from '@/services';
+import { AuthContext } from '@/contexts/AuthContext';
+import { Alert } from 'react-native';
 
-export default function Settings() {
+function Settings() {
+  const { user } = useContext(AuthContext);
+  const queryClient = useQueryClient();
+
+  const settingsQueryData = queryClient.getQueryData(
+    settingsService.getSettingsQueryKey([user!.id]),
+  );
+
+  const postSettingsMutation = useMutation({
+    mutationFn: settingsService.postSettings,
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: settingsService.getSettingsQueryKey([user!.id]),
+      });
+
+      Alert.alert('Configurações', 'Configurações salvas com sucesso.');
+    },
+    onError() {
+      Alert.alert('Configurações', 'Erro ao salvar as configurações.');
+    },
+  });
+
+  const { control, watch, handleSubmit, setValue } = useForm<ISettingsForm>({
+    defaultValues,
+    resolver: zodResolver(validations),
+  });
+
+  const { type, color, rotation } = watch();
+
+  const onSubmit = handleSubmit((data) => {
+    if (!user) return;
+
+    const payload = {
+      id: user.id,
+      ...data,
+    };
+
+    postSettingsMutation.mutate(payload, {
+      onSuccess() {
+        Alert.alert('Configurações', 'Configurações salvas com sucesso.');
+      },
+      onError() {
+        Alert.alert('Configurações', 'Erro ao salvar as configurações.');
+      },
+    });
+  });
+
+  useEffect(() => {
+    if (settingsQueryData && settingsQueryData[type]) {
+      const { color, rotation } = settingsQueryData[type];
+
+      setValue('color', color);
+      setValue('rotation', rotation);
+    }
+  }, [type]);
+
   return (
     <Container>
-      <Text>Settings</Text>
+      <Poligon
+        accessible
+        accessibilityLabel={poligonsNames[type]}
+        type={type}
+        color={color}
+        rotation={rotation}
+      />
+      <SelectField
+        label="Tipo de poligono"
+        name="type"
+        control={control}
+        optionLabelKey="name"
+        optionCompareKey="value"
+        optionKeyExtractor="value"
+        optionValueKey="value"
+        options={poligonsOptions}
+      />
+      <SliderField label="Rotação" name="rotation" control={control} />
+      <ColorPickerField label="Cor" name="color" control={control} />
+      <Button loading={postSettingsMutation.isPending} onPress={onSubmit}>
+        SALVAR
+      </Button>
     </Container>
   );
 }
+
+export default gestureHandlerRootHOC(Settings);

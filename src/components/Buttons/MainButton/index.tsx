@@ -26,6 +26,8 @@ function MainButton({
       activeOpacity={0.7}
       colorScheme={colorScheme}
       variant={variant}
+      accessibilityLabel={children}
+      accessibilityRole="button"
       style={style}
       {...props}
     >

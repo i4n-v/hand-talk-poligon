@@ -6,7 +6,9 @@ export default function Title({ children, style }: ITitleProps) {
   return (
     <TitleContainer>
       <Decoration />
-      <TitleText style={style}>{children}</TitleText>
+      <TitleText accessible accessibilityLabel={children} style={style}>
+        {children}
+      </TitleText>
     </TitleContainer>
   );
 }

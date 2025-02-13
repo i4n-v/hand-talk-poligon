@@ -1,4 +1,4 @@
-import api from './api';
 import queryClient from './queryClient';
+import database from './database';
 
-export { api, queryClient };
+export { database, queryClient };

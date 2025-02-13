@@ -32,7 +32,7 @@ export default function Signin() {
 
   return (
     <Container>
-      <Form>
+      <Form accessible accessibilityLabel="Formulário de login">
         <FormTitle>Login</FormTitle>
         <TextField label="E-mail" name="email" control={control} rightIcon={{ icon: <User /> }} />
         <TextField label="Senha" name="password" control={control} password />

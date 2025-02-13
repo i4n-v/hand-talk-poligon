@@ -1,3 +1,3 @@
-import querySerializer from './querySerializer';
+import accessObjectByString from './accessObjectByString';
 
-export { querySerializer };
+export { accessObjectByString };

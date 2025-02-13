@@ -1,4 +1,3 @@
-import { NativeStackHeaderProps } from '@react-navigation/native-stack';
 import {
   Container,
   IconButton,
@@ -25,26 +24,43 @@ export default function UserHeader({ isUser, options, navigation }: IHeaderProps
   });
 
   return (
-    <Container>
+    <Container accessible accessibilityRole="header">
       <ScreenInfo>
         <TitleContainer>
           {navigation.canGoBack() && (
-            <IconButton activeOpacity={theme.shape.opacity} onPress={navigation.goBack}>
+            <IconButton
+              accessible
+              accessibilityLabel="Voltar para a tela anterior"
+              accessibilityRole="menuitem"
+              activeOpacity={theme.shape.opacity}
+              onPress={navigation.goBack}
+            >
               <ArrowBack />
             </IconButton>
           )}
-          <Title>{options.title}</Title>
+          <Title accessible accessibilityLabel={options.title}>
+            {options.title}
+          </Title>
         </TitleContainer>
         {isUser && (
-          <IconButton isLogout activeOpacity={theme.shape.opacity} onPress={signoutMutation.mutate}>
+          <IconButton
+            accessible
+            accessibilityLabel="Sair do aplicativo"
+            accessibilityRole="menuitem"
+            isLogout
+            activeOpacity={theme.shape.opacity}
+            onPress={signoutMutation.mutate}
+          >
             <Logout />
           </IconButton>
         )}
       </ScreenInfo>
       {isUser && (
         <UserInfo>
-          <Account />
-          <UserIdentifier>{user?.email}</UserIdentifier>
+          <Account accessible accessibilityRole="image" accessibilityLabel="Ícone de usuário" />
+          <UserIdentifier accessible accessibilityLabel={user?.email}>
+            {user?.email}
+          </UserIdentifier>
         </UserInfo>
       )}
     </Container>

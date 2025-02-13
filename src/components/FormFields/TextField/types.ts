@@ -1,9 +1,7 @@
 import { IIcon } from '@/types/Icon';
 import { Control } from 'react-hook-form';
 import {
-  ColorValue,
   NativeSyntheticEvent,
-  TextInputEndEditingEventData,
   TextInputFocusEventData,
   TextInputProps,
   ViewProps,
@@ -15,7 +13,7 @@ interface IInputIcon {
 }
 
 interface ITextFieldProps {
-  name: string;
+  name?: string;
   value?: string | number | null;
   control?: Control<any, any>;
   label?: string;
@@ -27,6 +25,12 @@ interface ITextFieldProps {
   disabled?: boolean;
   containerProps?: ViewProps;
   inputProps?: TextInputProps;
+  showErrorMessage?: boolean;
+  selectionColor?: string;
+  errorMessage?: string;
+  onChangeText?(value: string): void;
+  onBlur?(event: NativeSyntheticEvent<TextInputFocusEventData>): void;
+  onFocus?(event: NativeSyntheticEvent<TextInputFocusEventData>): void;
 }
 
 export type { ITextFieldProps, IInputIcon };
