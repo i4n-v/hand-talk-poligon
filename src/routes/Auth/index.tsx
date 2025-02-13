@@ -4,7 +4,7 @@ import { AuthTabParamList } from './types';
 import { Header } from '@/components';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTheme } from 'styled-components/native';
-import Icon from '@react-native-vector-icons/material-icons';
+import { Settings as SettingsIcon, Home as HomeIcon } from '@/components/Icons';
 
 const Tab = createBottomTabNavigator<AuthTabParamList>();
 
@@ -33,7 +33,7 @@ export default function Auth() {
         component={Home}
         options={{
           title: 'Home',
-          tabBarIcon: (props) => <Icon name="home" {...props} />,
+          tabBarIcon: (props) => <HomeIcon {...props} />,
           header: (props) => <Header isUser {...props} />,
         }}
       />
@@ -42,7 +42,7 @@ export default function Auth() {
         component={Settings}
         options={{
           title: 'Configurações',
-          tabBarIcon: (props) => <Icon name="settings" {...props} />,
+          tabBarIcon: (props) => <SettingsIcon {...props} />,
           header: (props) => <Header {...props} />,
         }}
       />

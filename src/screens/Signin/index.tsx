@@ -1,23 +1,18 @@
-import React, { useContext } from 'react';
-import { BottomDetail, Button, Container, Form, Title, TopDetail } from './styles';
+import React from 'react';
+import { BottomDetail, Button, Container, Form, FormTitle, TopDetail } from './styles';
 import { TextField } from '../../components/FormFields';
 import { useForm } from 'react-hook-form';
 import { defaultValues, validations } from './validations';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ISiginForm } from './types';
-import Icon from '@react-native-vector-icons/material-icons';
-import { useTheme } from 'styled-components/native';
 import bottomDetail from '@/assets/images/bottom-detail.png';
 import topDetail from '@/assets/images/top-detail.png';
-import { AuthContext } from '@/contexts/AuthContext';
 import { authService } from '@/services';
 import { useMutation } from '@tanstack/react-query';
 import { Alert } from 'react-native';
+import { User } from '@/components/Icons';
 
 export default function Signin() {
-  const theme = useTheme();
-  const { setUser } = useContext(AuthContext);
-
   const siginMutation = useMutation({
     mutationFn: authService.signin,
   });
@@ -29,10 +24,7 @@ export default function Signin() {
 
   const onSubmit = handleSubmit((data) => {
     siginMutation.mutate(data, {
-      onSuccess() {
-        Alert.alert('Login', 'Login realizado com sucesso.');
-      },
-      onError(error) {
+      onError() {
         Alert.alert('Login', 'E-mail ou senha incorretos.');
       },
     });
@@ -41,15 +33,12 @@ export default function Signin() {
   return (
     <Container>
       <Form>
-        <Title>Login</Title>
-        <TextField
-          label="E-mail"
-          name="email"
-          control={control}
-          rightIcon={{ icon: <Icon name="person" size={32} color={theme.colors.primary?.[300]} /> }}
-        />
+        <FormTitle>Login</FormTitle>
+        <TextField label="E-mail" name="email" control={control} rightIcon={{ icon: <User /> }} />
         <TextField label="Senha" name="password" control={control} password />
-        <Button onPress={onSubmit}>ENTRAR</Button>
+        <Button loading={siginMutation.isPending} onPress={onSubmit}>
+          ENTRAR
+        </Button>
       </Form>
       <TopDetail source={topDetail} />
       <BottomDetail source={bottomDetail} />

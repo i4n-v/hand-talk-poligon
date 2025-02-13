@@ -1,3 +1,4 @@
+import { Title } from '@/components';
 import { MainButton } from '@/components/Buttons';
 import styled from 'styled-components/native';
 
@@ -17,10 +18,7 @@ const Form = styled.View`
   z-index: 1;
 `;
 
-const Title = styled.Text`
-  font-size: ${({ theme }) => theme.typography.size.lg + 'px'};
-  font-family: ${({ theme }) => theme.typography.fonts.primary.semibold};
-  color: ${({ theme }) => theme.colors.secondary?.[50]};
+const FormTitle = styled(Title)`
   margin-bottom: 28px;
 `;
 
@@ -40,4 +38,4 @@ const TopDetail = styled.Image`
   left: 0;
 `;
 
-export { Container, Title, Button, Form, BottomDetail, TopDetail };
+export { Container, FormTitle, Button, Form, BottomDetail, TopDetail };

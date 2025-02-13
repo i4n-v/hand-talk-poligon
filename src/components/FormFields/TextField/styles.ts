@@ -8,22 +8,14 @@ const InputContainer = styled.View`
   position: relative;
 `;
 
-interface ITextInputProps
-  extends Pick<ITextFieldProps, 'leftIcon' | 'rightIcon' | 'password' | 'textArea'> {
+interface ITextInputProps extends Pick<ITextFieldProps, 'leftIcon' | 'rightIcon' | 'password'> {
   focused: boolean;
   error: boolean;
 }
 
 const TextInput = styled.TextInput<ITextInputProps>`
-  height: ${({ textArea, numberOfLines }) => {
-    if (!textArea) return '44px';
-
-    const initialHeight = 20;
-    const height = numberOfLines ? numberOfLines * initialHeight : 10 * initialHeight;
-
-    return height + 'px';
-  }};
-  padding: ${({ textArea }) => (textArea ? '12px' : '0 12px')};
+  height: 44px;
+  padding: 0 12px;
   padding-left: ${({ leftIcon }) => (leftIcon ? '46px' : '12px')};
   padding-right: ${({ rightIcon }) => (rightIcon ? '46px' : '12px')};
   border-width: 1.5px;

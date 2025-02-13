@@ -1,5 +1,3 @@
-import Icon from '@react-native-vector-icons/material-icons';
-
-type IIcon = React.ReactElement<typeof Icon>;
+type IIcon = React.ReactElement<SVGElement>;
 
 export type { IIcon };

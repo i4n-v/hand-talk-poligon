@@ -10,11 +10,11 @@ import {
 } from './styles';
 import { useContext } from 'react';
 import { AuthContext } from '@/contexts/AuthContext';
-import Icon from '@react-native-vector-icons/material-icons';
 import { useTheme } from 'styled-components/native';
 import { IHeaderProps } from './types';
 import { useMutation } from '@tanstack/react-query';
 import { authService } from '@/services';
+import { Account, ArrowBack, Logout } from '../Icons';
 
 export default function UserHeader({ isUser, options, navigation }: IHeaderProps) {
   const theme = useTheme();
@@ -30,20 +30,20 @@ export default function UserHeader({ isUser, options, navigation }: IHeaderProps
         <TitleContainer>
           {navigation.canGoBack() && (
             <IconButton activeOpacity={theme.shape.opacity} onPress={navigation.goBack}>
-              <Icon name="arrow-back-ios" size={24} color={theme.colors.secondary?.[0]} />
+              <ArrowBack />
             </IconButton>
           )}
           <Title>{options.title}</Title>
         </TitleContainer>
         {isUser && (
-          <IconButton activeOpacity={theme.shape.opacity} onPress={signoutMutation.mutate}>
-            <Icon name="logout" size={32} color={theme.colors.secondary?.[0]} />
+          <IconButton isLogout activeOpacity={theme.shape.opacity} onPress={signoutMutation.mutate}>
+            <Logout />
           </IconButton>
         )}
       </ScreenInfo>
       {isUser && (
         <UserInfo>
-          <Icon name="person-pin" size={32} color={theme.colors.primary?.[300]} />
+          <Account />
           <UserIdentifier>{user?.email}</UserIdentifier>
         </UserInfo>
       )}

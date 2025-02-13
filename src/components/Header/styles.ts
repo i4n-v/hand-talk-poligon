@@ -28,7 +28,7 @@ const Title = styled.Text`
 const IconButton = styled.TouchableOpacity`
   background-color: ${({ theme }) => theme.colors.primary?.[500]};
   border-radius: 32px;
-  padding: 3px 0px 3px 8px;
+  padding: ${({ isLogout }) => (isLogout ? '5px 4px 5px 8px' : '4px')};
 `;
 
 const UserInfo = styled.View`
