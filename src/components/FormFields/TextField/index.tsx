@@ -5,7 +5,6 @@ import { InputContainer, InputIconButton, TextInput } from './styles';
 import { ErrorMessage, Label } from '../FieldUtilitaries';
 import { ITextFieldProps } from './types';
 import { CloseEye, Eye } from '@/components/Icons';
-import { View } from 'react-native-reanimated/lib/typescript/Animated';
 
 const defaultController: any = {
   field: {},

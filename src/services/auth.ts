@@ -17,6 +17,10 @@ class AuthService {
   signout = async () => {
     await this.auth().signOut();
   };
+
+  onAuthStateChanged = () => {
+    return this.auth().onAuthStateChanged;
+  };
 }
 
 export default new AuthService(auth);

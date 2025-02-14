@@ -15,7 +15,7 @@ import { useNotifier } from '@/hooks';
 
 function Settings() {
   const { openNotification } = useNotifier();
-  const { user } = useContext(AuthContext);
+  const { user, flags } = useContext(AuthContext);
   const queryClient = useQueryClient();
 
   const settingsQueryData = queryClient.getQueryData(
@@ -89,9 +89,17 @@ function Settings() {
         optionValueKey="value"
         options={poligonsOptions}
       />
-      <SliderField label="Rotação" name="rotation" control={control} />
-      <ColorPickerField label="Cor" name="color" control={control} />
-      <Button loading={postSettingsMutation.isPending} onPress={onSubmit}>
+      {flags?.polygon_rotation_change && (
+        <SliderField label="Rotação" name="rotation" control={control} />
+      )}
+      {flags?.polygon_color_change && (
+        <ColorPickerField label="Cor" name="color" control={control} />
+      )}
+      <Button
+        loading={postSettingsMutation.isPending}
+        onPress={onSubmit}
+        disabled={!flags?.polygon_rotation_change && !flags?.polygon_color_change}
+      >
         SALVAR
       </Button>
     </Container>
