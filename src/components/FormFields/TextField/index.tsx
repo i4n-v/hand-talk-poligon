@@ -69,8 +69,8 @@ function TextField({
         aria-disabled={disabled}
         focused={focused}
         error={!!error}
-        leftIcon={leftIcon as any}
-        rightIcon={leftIcon as any}
+        leftIcon={!!leftIcon}
+        rightIcon={!!rightIcon}
         password={password}
         accessibilityLabel={label}
         accessibilityLabelledBy={label}

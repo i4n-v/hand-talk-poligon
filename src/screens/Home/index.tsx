@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Container } from './styles';
 import { Poligon, Title } from '@/components';
-import { useQuery } from '@/hooks';
+import { useLoading, useNotifier, useQuery } from '@/hooks';
 import { settingsService } from '@/services';
 import { AuthContext } from '@/contexts/AuthContext';
 import { useTheme } from 'styled-components/native';
@@ -9,12 +9,26 @@ import { poligonsOptions } from '../Settings/constants';
 
 export default function Home() {
   const theme = useTheme();
+  const { openNotification } = useNotifier();
+  const loading = useLoading();
   const { user } = useContext(AuthContext);
 
   const settingsQuery = useQuery({
-    queryKey: settingsService.getSettingsQueryKey([user!.id]),
-    queryFn: () => settingsService.getSettings(user!.id),
     enabled: !!user,
+    queryKey: settingsService.getSettingsQueryKey([user!.id]),
+    queryFn: () => {
+      loading(true);
+      return settingsService.getSettings(user!.id);
+    },
+    onError() {
+      openNotification({
+        status: 'error',
+        message: 'Houve um erro ao buscar as configurações dos poligonos.',
+      });
+    },
+    onSettled() {
+      loading(false);
+    },
   });
 
   return (

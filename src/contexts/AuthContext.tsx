@@ -1,6 +1,7 @@
-import { ReactNode, createContext, useEffect, useState } from 'react';
+import { ReactNode, createContext, useContext, useEffect, useState } from 'react';
 import { IUser } from '@/types/User';
 import auth from '@react-native-firebase/auth';
+import { useLoading } from '@/hooks';
 
 interface IAuthContextProps {
   user: IUser | null;
@@ -14,6 +15,7 @@ interface IAuthContextProviderProps {
 const AuthContext = createContext<IAuthContextProps>({} as IAuthContextProps);
 
 function AuthProvider({ children }: IAuthContextProviderProps) {
+  const loading = useLoading();
   const [user, setUser] = useState<IUser | null>(null);
 
   useEffect(() => {
@@ -26,6 +28,8 @@ function AuthProvider({ children }: IAuthContextProviderProps) {
       } else {
         setUser(null);
       }
+
+      loading(false);
     });
 
     return () => unsubscribe();

@@ -11,9 +11,10 @@ import { poligonsNames, poligonsOptions } from './constants';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { settingsService } from '@/services';
 import { AuthContext } from '@/contexts/AuthContext';
-import { Alert } from 'react-native';
+import { useNotifier } from '@/hooks';
 
 function Settings() {
+  const { openNotification } = useNotifier();
   const { user } = useContext(AuthContext);
   const queryClient = useQueryClient();
 
@@ -23,16 +24,6 @@ function Settings() {
 
   const postSettingsMutation = useMutation({
     mutationFn: settingsService.postSettings,
-    onSuccess() {
-      queryClient.invalidateQueries({
-        queryKey: settingsService.getSettingsQueryKey([user!.id]),
-      });
-
-      Alert.alert('Configurações', 'Configurações salvas com sucesso.');
-    },
-    onError() {
-      Alert.alert('Configurações', 'Erro ao salvar as configurações.');
-    },
   });
 
   const { control, watch, handleSubmit, setValue } = useForm<ISettingsForm>({
@@ -52,10 +43,20 @@ function Settings() {
 
     postSettingsMutation.mutate(payload, {
       onSuccess() {
-        Alert.alert('Configurações', 'Configurações salvas com sucesso.');
+        queryClient.invalidateQueries({
+          queryKey: settingsService.getSettingsQueryKey([user!.id]),
+        });
+
+        openNotification({
+          status: 'success',
+          message: 'Configurações salvas com sucesso.',
+        });
       },
       onError() {
-        Alert.alert('Configurações', 'Erro ao salvar as configurações.');
+        openNotification({
+          status: 'error',
+          message: 'Erro ao salvar as configurações.',
+        });
       },
     });
   });

@@ -1,9 +1,9 @@
 import * as React from 'react';
-import Svg, { G, Path, Defs, LinearGradient, Stop, ClipPath } from 'react-native-svg';
+import Svg, { G, Path, Defs, LinearGradient, Stop, ClipPath, SvgProps } from 'react-native-svg';
 
-function Logout() {
+function Logout(props: SvgProps) {
   return (
-    <Svg width={32} height={32} viewBox="0 0 32 32" fill="none">
+    <Svg width={32} height={32} viewBox="0 0 32 32" fill="none" {...props}>
       <G clipPath="url(#clip0_543_407)">
         <Path
           d="M6.667 6.667h8c.733 0 1.333-.6 1.333-1.334C16 4.6 15.4 4 14.667 4h-8A2.675 2.675 0 004 6.667v18.666C4 26.8 5.2 28 6.667 28h8C15.4 28 16 27.4 16 26.667c0-.734-.6-1.334-1.333-1.334h-8V6.667z"

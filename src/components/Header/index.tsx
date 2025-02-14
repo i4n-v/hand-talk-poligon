@@ -14,13 +14,27 @@ import { IHeaderProps } from './types';
 import { useMutation } from '@tanstack/react-query';
 import { authService } from '@/services';
 import { Account, ArrowBack, Logout } from '../Icons';
+import { useNotifier } from '@/hooks';
 
 export default function UserHeader({ isUser, options, navigation }: IHeaderProps) {
+  const { openNotification } = useNotifier();
   const theme = useTheme();
   const { user } = useContext(AuthContext);
 
   const signoutMutation = useMutation({
     mutationFn: authService.signout,
+    onSuccess() {
+      openNotification({
+        status: 'success',
+        message: 'Logout realizado com sucesso.',
+      });
+    },
+    onError() {
+      openNotification({
+        status: 'error',
+        message: 'Erro ao realizar logout.',
+      });
+    },
   });
 
   return (

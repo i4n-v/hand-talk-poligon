@@ -9,10 +9,12 @@ import bottomDetail from '@/assets/images/bottom-detail.png';
 import topDetail from '@/assets/images/top-detail.png';
 import { authService } from '@/services';
 import { useMutation } from '@tanstack/react-query';
-import { Alert } from 'react-native';
 import { User } from '@/components/Icons';
+import { useNotifier } from '@/hooks';
 
 export default function Signin() {
+  const { openNotification } = useNotifier();
+
   const siginMutation = useMutation({
     mutationFn: authService.signin,
   });
@@ -24,8 +26,17 @@ export default function Signin() {
 
   const onSubmit = handleSubmit((data) => {
     siginMutation.mutate(data, {
+      onSuccess() {
+        openNotification({
+          status: 'success',
+          message: 'Usuário autenticado com sucesso.',
+        });
+      },
       onError() {
-        Alert.alert('Login', 'E-mail ou senha incorretos.');
+        openNotification({
+          status: 'error',
+          message: 'E-mail ou senha incorretos.',
+        });
       },
     });
   });

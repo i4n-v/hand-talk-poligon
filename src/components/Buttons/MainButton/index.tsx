@@ -1,12 +1,13 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useTheme } from 'styled-components/native';
 import { ButtonContainer, ButtonLabel } from './styles';
 import { IMainButtonProps } from './types';
+import { SpinnerLoading } from '@/components/Loadings';
 
 function MainButton({
   children,
   loading,
-  loadingText = 'enviando...',
+  loadingText = 'ENVIANDO',
   disabled,
   onPress,
   colorScheme,
@@ -37,7 +38,7 @@ function MainButton({
           {loading ? loadingText : children}
         </ButtonLabel>
       )}
-      {!loading && rightIcon}
+      {loading ? <SpinnerLoading /> : rightIcon}
     </ButtonContainer>
   );
 }
