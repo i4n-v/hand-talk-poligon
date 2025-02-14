@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useContext, useEffect, useState } from 'react';
+import { ReactNode, createContext, useEffect, useState } from 'react';
 import { IUser } from '@/types/User';
 import { useLoading } from '@/hooks';
 import { authService, remoteService } from '@/services';

@@ -10,7 +10,7 @@ function FullPageLoading() {
   if (!loading) return null;
 
   return (
-    <LoadingContainer>
+    <LoadingContainer testID="full-loading">
       <LottieView
         autoPlay
         source={triangleAnimation}

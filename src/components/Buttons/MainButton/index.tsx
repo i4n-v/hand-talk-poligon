@@ -1,5 +1,4 @@
 import React from 'react';
-import { useTheme } from 'styled-components/native';
 import { ButtonContainer, ButtonLabel } from './styles';
 import { IMainButtonProps } from './types';
 import { SpinnerLoading } from '@/components/Loadings';
@@ -18,11 +17,12 @@ function MainButton({
   variant,
   ...props
 }: IMainButtonProps) {
-  const theme = useTheme();
-
   return (
     <ButtonContainer
       disabled={loading || disabled}
+      accessibilityState={{
+        disabled: loading || disabled,
+      }}
       onPress={onPress}
       activeOpacity={0.7}
       colorScheme={colorScheme}

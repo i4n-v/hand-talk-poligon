@@ -1,13 +1,23 @@
-/**
- * @format
- */
+import React, { act } from 'react';
+import { render, screen } from '@testing-library/react-native';
+import { App } from '@/screens';
 
-import React from 'react';
-import ReactTestRenderer from 'react-test-renderer';
-import App from '../App';
+describe('<App />', () => {
+  test('Renders App component', async () => {
+    render(<App />);
 
-test('renders correctly', async () => {
-  await ReactTestRenderer.act(() => {
-    ReactTestRenderer.create(<App />);
+    await act(async () => {
+      const app = screen.getByTestId('app');
+      expect(app).toBeTruthy();
+    });
   });
+});
+
+beforeEach(() => {
+  jest.useFakeTimers();
+});
+
+afterEach(() => {
+  jest.clearAllTimers();
+  jest.useRealTimers();
 });

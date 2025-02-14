@@ -26,7 +26,7 @@ function TextField({
   disabled,
   containerProps,
   inputProps,
-  showErrorMessage,
+  showErrorMessage = true,
   errorMessage,
   selectionColor,
   onChangeText,
@@ -52,7 +52,7 @@ function TextField({
   }, []);
 
   return (
-    <InputContainer {...containerProps}>
+    <InputContainer testID="input" {...containerProps}>
       <Label error={!!error} disabled={disabled} required={required}>
         {label}
       </Label>

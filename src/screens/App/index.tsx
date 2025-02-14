@@ -20,7 +20,7 @@ function App(): React.JSX.Element {
         <NavigationContainer>
           <GlobalProvider>
             <AuthProvider>
-              <Container>
+              <Container testID="app">
                 <GestureHandlerView>
                   <BottomSheetModalProvider>
                     <StatusBar
