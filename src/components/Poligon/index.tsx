@@ -2,7 +2,7 @@ import React from 'react';
 import { Canvas } from '@react-three/fiber/native';
 import { OrbitControls } from '@react-three/drei/native';
 import { IPoligonProps } from './types';
-import { View } from 'react-native';
+import { Container } from './styles';
 
 function PoligonRender({ type, color, rotation }: IPoligonProps) {
   return (
@@ -23,7 +23,7 @@ export default function Poligon({
   ...props
 }: IPoligonProps) {
   return (
-    <View testID="poligon">
+    <Container testID="poligon">
       <Canvas
         accessible={accessible}
         accessibilityLabel={accessibilityLabel}
@@ -34,6 +34,6 @@ export default function Poligon({
         <PoligonRender {...props} />
         <OrbitControls enabled={orbital} />
       </Canvas>
-    </View>
+    </Container>
   );
 }
