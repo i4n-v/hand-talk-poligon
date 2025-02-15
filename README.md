@@ -22,7 +22,7 @@ Follow the instructions to run project :)
 
 - [Node.js](https://nodejs.org/en/)
 - [Yarn](https://yarnpkg.com/)
-- [Firebase]((https://rnfirebase.io/))
+- [Firebase](https://rnfirebase.io/)
 
 ### Execution
 
