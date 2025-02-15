@@ -3,6 +3,7 @@ import { IUser } from '@/types/User';
 import { useLoading } from '@/hooks';
 import { authService, remoteService } from '@/services';
 import { IFirebaseFlags } from '@/types/Firebase';
+import SplashScreen from 'react-native-splash-screen';
 
 interface IAuthContextProps {
   user: IUser | null;
@@ -58,6 +59,10 @@ function AuthProvider({ children }: IAuthContextProviderProps) {
     });
 
     return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    SplashScreen.hide();
   }, []);
 
   return (
