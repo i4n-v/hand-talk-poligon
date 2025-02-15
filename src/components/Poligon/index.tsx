@@ -16,19 +16,15 @@ function PoligonRender({ type, color, rotation }: IPoligonProps) {
 }
 
 export default function Poligon({
-  size,
   orbital = false,
   accessible,
   accessibilityLabel,
+  style,
   ...props
 }: IPoligonProps) {
   return (
-    <Container testID="poligon">
-      <Canvas
-        accessible={accessible}
-        accessibilityLabel={accessibilityLabel}
-        style={{ width: size, height: size }}
-      >
+    <Container testID="poligon" style={style}>
+      <Canvas accessible={accessible} accessibilityLabel={accessibilityLabel}>
         <ambientLight intensity={0.5} />
         <directionalLight position={[5, 5, 5]} />
         <PoligonRender {...props} />

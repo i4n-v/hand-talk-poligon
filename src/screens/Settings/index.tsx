@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react';
-import { Button, Container } from './styles';
-import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
-import { Poligon } from '@/components';
+import { Button, Container, SizedPoligon } from './styles';
+import { gestureHandlerRootHOC, ScrollView } from 'react-native-gesture-handler';
 import { useForm } from 'react-hook-form';
 import { defaultValues, validations } from './validations';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -71,38 +70,40 @@ function Settings() {
   }, [type]);
 
   return (
-    <Container>
-      <Poligon
-        accessible
-        accessibilityLabel={poligonsNames[type]}
-        type={type}
-        color={color}
-        rotation={rotation}
-      />
-      <SelectField
-        label="Tipo de poligono"
-        name="type"
-        control={control}
-        optionLabelKey="name"
-        optionCompareKey="value"
-        optionKeyExtractor="value"
-        optionValueKey="value"
-        options={poligonsOptions}
-      />
-      {flags?.polygon_rotation_change && (
-        <SliderField label="Rotação" name="rotation" control={control} />
-      )}
-      {flags?.polygon_color_change && (
-        <ColorPickerField label="Cor" name="color" control={control} />
-      )}
-      <Button
-        loading={postSettingsMutation.isPending}
-        onPress={onSubmit}
-        disabled={!flags?.polygon_rotation_change && !flags?.polygon_color_change}
-      >
-        SALVAR
-      </Button>
-    </Container>
+    <ScrollView>
+      <Container contentContainerStyle={{}}>
+        <SizedPoligon
+          accessible
+          accessibilityLabel={poligonsNames[type]}
+          type={type}
+          color={color}
+          rotation={rotation}
+        />
+        <SelectField
+          label="Tipo de poligono"
+          name="type"
+          control={control}
+          optionLabelKey="name"
+          optionCompareKey="value"
+          optionKeyExtractor="value"
+          optionValueKey="value"
+          options={poligonsOptions}
+        />
+        {flags?.polygon_rotation_change && (
+          <SliderField label="Rotação" name="rotation" control={control} />
+        )}
+        {flags?.polygon_color_change && (
+          <ColorPickerField label="Cor" name="color" control={control} />
+        )}
+        <Button
+          loading={postSettingsMutation.isPending}
+          onPress={onSubmit}
+          disabled={!flags?.polygon_rotation_change && !flags?.polygon_color_change}
+        >
+          SALVAR
+        </Button>
+      </Container>
+    </ScrollView>
   );
 }
 
